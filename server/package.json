@@ -9,7 +9,9 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "play": "node src/scripts/playground.js",
-    "backfill": "node src/scripts/backfill.js"
+    "backfill": "node src/scripts/backfill.js",
+    "reconcile": "node src/scripts/reconcile.js",
+    "race7": "node src/scripts/race7.js"
   },
   "keywords": [],
   "author": "",

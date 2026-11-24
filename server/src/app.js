@@ -5,6 +5,7 @@ import { generalLimiter } from "./middleware/ratelimit.js";
 import walletRoutes from "./routes/wallet.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 import marketRoutes from "./routes/market.js";
+import tradeRoutes from "./routes/trades.js";
 
 import cors from "cors";
 export function createApp() {
@@ -15,6 +16,7 @@ export function createApp() {
   app.use("/api/auth", authRoutes);
   app.use("/api/wallet", walletRoutes);
   app.use("/api/market", marketRoutes);
+  app.use("/api/trades", tradeRoutes);
 
   app.get("/", (req, res) => {
     res.json({ message: "TradeLab API chal rahi hai" });
