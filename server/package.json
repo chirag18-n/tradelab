@@ -23,6 +23,8 @@
     "express-rate-limit": "^8.7.5",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.24.11",
+    "socket.io": "^4.8.4",
+    "ws": "^8.23.0",
     "zod": "^4.6.7"
   }
 }

@@ -4,6 +4,7 @@ import { validate } from "../middleware/validate.js";
 import { Candle } from "../models/Candle.js";
 import { SYMBOLS, ASSETS } from "../config/env.js";
 import router from "./auth.js";
+import { snapshotForClients } from "../services/marketCache.js";
 
 const candleSchema = z.object({
   symbol: z.string().refine((s) => SYMBOLS.includes(s), "Unknown symbol"),
@@ -20,5 +21,9 @@ router.get("/candles", validate(candleSchema, "query"), async (req, res) => {
     .lean();
   res.json({ symbol, interval, candles: rows.reverse() }); // oldest first for charts
 });
+
+router.get("/prices", (_req, res) =>
+  res.json({ prices: snapshotForClients() }),
+);
 //last
 export default router;

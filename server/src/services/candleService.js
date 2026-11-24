@@ -67,3 +67,25 @@ export async function backfill({
   }
   return total;
 }
+
+// Called whenever the collector (re)connects. If the server slept or the socket
+// dropped, there is a hole in our data. Find the newest candle we have and
+// download everything after it.
+export async function fillGap(symbol, maxLookbackMs = 24 * 60 * MINUTE) {
+  const last = await Candle.findOne({ symbol, interval: "1m" })
+    .sort({ openTime: -1 })
+    .select("openTime")
+    .lean();
+  const from = last
+    ? last.openTime.getTime() + MINUTE
+    : Date.now() - 60 * MINUTE;
+  if (Date.now() - from < 2 * MINUTE) return 0; // no real gap
+  return backfill({ symbol, from: Math.max(from, Date.now() - maxLookbackMs) });
+}
+export async function getLatestClose(symbol) {
+  const row = await Candle.findOne({ symbol, interval: "1m" })
+    .sort({ openTime: -1 })
+    .select("c")
+    .lean();
+  return row ? row.c : null;
+}

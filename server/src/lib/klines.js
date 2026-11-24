@@ -13,3 +13,17 @@ export function klineRowToCandle(symbol, interval, row) {
     v: Number(row[5]),
   };
 }
+// Binance WebSocket kline event payload (the "k" object):
+// { t: openTime, s: symbol, i: interval, o, c, h, l, v, x: isClosed, ... }
+export function wsKlineToCandle(k) {
+  return {
+    symbol: k.s,
+    interval: k.i,
+    openTime: new Date(k.t),
+    o: priceToCents(k.o),
+    h: priceToCents(k.h),
+    l: priceToCents(k.l),
+    c: priceToCents(k.c),
+    v: Number(k.v),
+  };
+}
