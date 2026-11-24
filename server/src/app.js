@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import express from "express";
 import practiceRoutes from "./routes/practice.js";
 import cors from "cors";
@@ -9,7 +10,8 @@ export function createApp() {
     res.json({ message: "TradeLab API chal rahi hai" });
   });
   app.get("/health", (req, res) => {
-    res.json({ ok: true });
+    const up = mongoose.connection.readyState === 1; // 1 = connected
+    res.status(up ? 200 : 503).json({ ok: up });
   });
   // ... app.get('/health', ...) ke neeche, return app; se pehle:
   app.use("/api/practice", practiceRoutes);
