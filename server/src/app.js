@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import authRoutes from "./routes/auth.js";
 import { generalLimiter } from "./middleware/rateLimit.js";
+import walletRoutes from "./routes/wallet.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 
 import cors from "cors";
@@ -11,6 +12,7 @@ export function createApp() {
   app.use(express.json()); // request ki JSON body ko padh ke req.body mein rakhta hai
   app.use("/api", generalLimiter);
   app.use("/api/auth", authRoutes);
+  app.use("/api/wallet", walletRoutes);
 
   app.get("/", (req, res) => {
     res.json({ message: "TradeLab API chal rahi hai" });
