@@ -6,7 +6,7 @@ import { Wallet } from "../models/Wallet.js";
 import { createUserWithWallet } from "../services/walletService.js";
 import { signToken, authRequired } from "../middleware/auth.js";
 import { validate } from "../middleware/validate.js";
-import { authLimiter } from "../middleware/rateLimit.js";
+import { authLimiter } from "../middleware/ratelimit.js";
 import { AppError } from "../lib/errors.js";
 const router = Router();
 const registerSchema = z.object({

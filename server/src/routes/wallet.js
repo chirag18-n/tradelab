@@ -2,7 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { authRequired } from "../middleware/auth.js";
 import { validate } from "../middleware/validate.js";
-import { tradeLimiter } from "../middleware/rateLimit.js";
+import { tradeLimiter } from "../middleware/ratelimit.js";
 import { deposit } from "../services/walletService.js";
 import { parseUsd } from "../lib/money.js";
 import { Errors } from "../lib/errors.js";
